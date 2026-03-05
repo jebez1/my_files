@@ -1,0 +1,67 @@
+This can be useful to e.g. upgrade, install, uninstall...
+
+• The template
+
+Create a none or .sh file containing:
+⃝
+#!/bin/bash
+konsole -e bash -c '...
+...
+bash'
+⏺
+
+Also:
+(only 1 command:)
+⃝
+#!/bin/bash
+konsole --hold -e ...
+⏺
+⃝
+#!/bin/bash
+konsole --hold -e bash -c '...
+...'
+⏺
+are possible but it's not possible to reuse Konsole after.
+
+• Examples
+
+The package(s) downloaded in RAM:
+
+/etc/pacman.conf
+⃝
+[options]
+...
+CacheDir=/tmp/!
+⏺
+
+Upgrade Arch Linux KDE
+⃝
+#!/bin/bash
+konsole -e bash -c 'sudo pacman -Syu
+sudo rm -r /tmp/!
+bash'
+⏺
+Option:
+⃝
+sudo pacman -Syu --noconfirm
+⏺
+but it may be preferable to look carefully before upgrade.
+
+A prompt to write the desired package(s):
+
+Install package(s)
+⃝
+#!/bin/bash
+konsole -e bash -c 'read a
+sudo pacman -Syu $a
+sudo rm -r /tmp/!
+bash'
+⏺
+
+Uninstall package(s)
+⃝
+#!/bin/bash
+konsole -e bash -c 'read a
+sudo pacman -Rsun $a
+bash'
+⏺

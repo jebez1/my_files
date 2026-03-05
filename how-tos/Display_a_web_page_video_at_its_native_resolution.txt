@@ -1,0 +1,58 @@
+Why is a web page <video> (e.g. YouTube) resized, e.g. a 640x480 video resized 1440x1080 on your display?
+<video> has a container (like width=100%) & by default it's video{object-fit:contain} of the user agent stylesheet of Falkon, or a web browser in general, but the very default (if nothing about video in the user agent stylesheet) is video{object-fit:fill} https://www.w3schools.com/css/css3_object-fit.asp .
+
+Obviously the author of the web page can override the user agent stylesheet, e.g. on YouTube there's <video>, class, html5-main-video that points to a CSS rule containing object-fit:cover.
+
+• The solution: an user stylesheet
+
+•• <video> not fitted to its container
+
+Falkon, Preferences, Other, User Style Sheet, select a .css file containing:
+⃝
+video{object-fit:none!important}
+⏺
+Or
+
+•• <video> without container
+
+As above
+⃝
+video{width:auto!important
+height:auto!important}
+⏺
+
+1st vs 2nd:
+E.g. on YouTube: <video> not fitted to its container is centered to the player, without container is upper left.
+
+• An other solution
+
+Change video{object-fit:contain} of the user agent stylesheet of Falkon to video{object-fit:none!important} or other, by modifying Falkon or its source code https://github.com/KDE/falkon , I know not where...
+
+• 2 other solutions outside the web page
+
+•• If possible
+
+Right click the video
+
+Copy Media Address
+Paste And Go (the address bar)
+Or
+VLC, Media, Open location from clipboard, Video, uncheck Always Fit Window (once)
+     Or
+     Tools, Preferences, All, Video, uncheck Video Auto Scaling (always)
+
+Or
+
+Save Media To Disk
+Play the video in Falkon or VLC as above.
+
+•• If impossible
+
+Get the URL of the video or download it (with yt-dlp)
+Play the video in Falkon or VLC as above.
+
+• Misc
+
+video no-fit Chromium & Chrome extension https://chromewebstore.google.com/detail/nagmafleejphkoafacifkhhkbjmjklng .
+
+https://chromium.googlesource.com/chromium/blink/+/master/Source/core/css/html.css the user agent stylesheet of Chomium & Chrome containing video{object-fit:contain} .

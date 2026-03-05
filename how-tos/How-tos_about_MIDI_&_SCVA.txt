@@ -1,0 +1,88 @@
+SCVA: Roland Sound Canvas VA, a MIDI VST plugin https://www.roland.com/us/products/rc_sound_canvas_va/ , abandonware https://support.roland.com/hc/en-us/articles/30557546290459-Sound-Canvas-VA-Is-it-still-available-for-purchase .
+
+• The default Windows MIDI soundfont on Arch Linux
+
+https://musical-artifacts.com/artifacts/713/gm.sf2
+
+It works with e.g.:
+
+EDuke32 https://aur.archlinux.org/packages/eduke32 :
+⃝
+SDL_VIDEODRIVER=x11 eduke32
+⏺
+OPTIONS, SOUND SETUP, DEVICE CONFIGURATION, MIDI DRIVER: .SF2 SYNTH, select gm.sf2, APPLY CHANGES.
+
+VLC https://archlinux.org/packages/extra/x86_64/vlc/ :
+Preferences, All, FluidSynth, SoundFont file: /a_path/gm.sf2 .
+
+• SCVA & yabridge using Proton instead of Wine
+
+Install SCVA:
+https://archive.org/download/roland-sound-canvas-va/Sound%20Canvas%20VA%20v1.1.6%20%2864-bit%29.7z
+Setup SOUND Canvas VA v1.1.6.exe via Proton (or Wine)
+
+yabridge https://archlinux.org/packages/extra/x86_64/yabridge/ uses by default Wine (a dependency), to use Proton instead, run:
+⃝
+cd /tmp
+wget --content-disposition https://archlinux.org/packages/extra/x86_64/yabridge/download/
+tar --one-top-level -xf yabridge-*-x86_64.pkg.tar.zst
+rm yabridge-*-x86_64.pkg.tar.zst
+sed -i /wine/d yabridge-*-x86_64.pkg/.BUILDINFO yabridge-*-x86_64.pkg/.PKGINFO
+sed -i 2cPATH=/a_path/pfx/drive_c/"'Program Files (x86)/Steam/steamapps/common/Proton a_version'/files/bin:\$PATH\nexport PATH" yabridge-*-x86_64.pkg/usr/bin/yabridge-host.exe
+tar -cf .tar -C yabridge-*-x86_64.pkg $(ls -A yabridge-*-x86_64.pkg)
+rm -r yabridge-*-x86_64.pkg
+sudo pacman -U .tar
+rm .tar
+sudo pacman -Syu
+sudo rm -r /tmp/!
+yabridgectl add /a_path/pfx/drive_c/'Program Files'/Steinberg/VSTPlugins
+WINEPREFIX=/a_path/pfx yabridgectl sync
+⏺
+
+Instead of edit /usr/bin/yabridge-host.exe :
+⃝
+WINELOADER=/a_path/pfx/drive_c/'Program Files (x86)/Steam/steamapps/common/Proton a_version'/files/bin/wine carla
+⏺
+is also possible.
+
+• Carla
+
+Carla, Add Plugin, Refresh, Scan, Close, select SOUND Canvas VA, Add Plugin,
+recommended: the gear icon at left of SOUND Canvas VA, All, the right arrow (for SC-55),
+Patchbay, connect:
+Midi Through: Midi Through Port-0 14:0 to midi-in
+midi-out to Midi Through: Midi Through Port-0 14:0
+audio-out1 to playback_1
+audio-out2 to playback_2
+recommended, save it: Save, etc.
+
+•• Play a .mid file
+
+Rack, drag drop a .mid file, Transport, the play icon.
+
+•• Play a video game MIDI
+
+E.g.:
+
+EDuke32, OPTIONS, SOUND SETUP, DEVICE CONFIGURATION, MIDI DRIVER: ALSA MIDI, APPLY CHANGES.
+
+Duke Nukem 3D https://archive.org/download/DukeNukem3DKillATonCollectionUSA installed:
+DOSBox, cd KILLATON/ATOMIC, SETUP.EXE, Sound Setup, Choose Music Card, Sound Canvas, the default MIDI Port 0x330,
+you can test: Test Music Card
+Esc Exits,
+Esc Exits, Yes (Save Settings before exitings?)
+or
+Save and launch Duke Nukem 3D
+
+• The latest SCVA 1.16
+
+https://archive.org/download/sound-canvas-1.16/Sound%20Canvas%201.16.zip but https://archive.org/details/sound-canvas-1.16 see my review (jebez0).
+
+• Misc
+
+Trying Audacity https://forum.audacityteam.org/t/mid-file-sound-canvas-va-not-work/144539 .
+
+Topics that helped for this page:
+https://forums.duke4.net/topic/12787-windows-mme-equivalent-on-linux/
+https://github.com/robbert-vdh/yabridge/issues/440
+https://www.rncbc.org/drupal/node/2875 .
