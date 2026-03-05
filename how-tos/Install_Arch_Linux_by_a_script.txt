@@ -119,4 +119,4 @@ exit
 ...
 ⏺
 
-somewhere in 0, to eventually debug it (I did it for sleep command).
+to add somewhere in 0, to eventually debug it (I did it for sleep command).
