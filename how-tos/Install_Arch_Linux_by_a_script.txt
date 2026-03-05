@@ -36,7 +36,7 @@ mount /dev/sdb1 /home    # /home is empty
 mount -o remount,size=0 /tmp    # tweak, remove the limit of tmpfs, https://man.archlinux.org/man/tmpfs.5 , https://wiki.archlinux.org/title/Tmpfs
 sed -i '/Ca/cCacheDir=/tmp/!    # use the RAM
 /Ch/d' /etc/pacman.conf    # tweak, use the swap partition, Ch : CheckSpace
-fdisk /dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT<<<'n
+fdisk /dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT<<<'n    #
 
 
 133119
@@ -54,13 +54,13 @@ n
 1953525134
 w'    # partitioning
 sleep 3    # otherwise the formatting under fails, 2 fails
-mkfs.fat /dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT-part1
+mkfs.fat /dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT-part1    #
 mkfs.ext4 /dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT-part2
 mkswap /dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT-part3
 mkfs.ext4 /dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT-part4    # formatting
 mount /dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT-part2 /mnt
 chmod 777 /mnt    # enable read, write & execute
-mount --mkdir /dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT-part1 /mnt/efi
+mount --mkdir /dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT-part1 /mnt/efi    #
 mkdir /mnt/efi/efi
 mkdir /mnt/efi/efi/boot
 mkdir /mnt/etc
@@ -76,12 +76,12 @@ systemctl enable NetworkManager sddm
 ln -s /usr/share/zoneinfo/UTC /etc/localtime
 hwclock -w
 echo -en /dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT-part1 /efi auto'\'n/dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT-part3 none swap>/etc/fstab
-sed -i 15,17d /usr/lib/tmpfiles.d/var.conf
+sed -i 15,17d /usr/lib/tmpfiles.d/var.conf    #
 rm /var/log/wtmp /var/log/btmp /var/log/lastlog    # option, https://gitlab.archlinux.org/archlinux/packaging/packages/systemd/-/issues/66
 useradd -m a    # config, add the user named a
-sed -i '1s/x//
+sed -i '1s/x//    #
 \$s/x//' /etc/passwd    # config, remove the root & user passwords
-sed -i '/t A/s/^/# /
+sed -i '/t A/s/^/# /    #
 /L A/s/^..//' /etc/sudoers   # option (strongly recommended) enable sudo
 sed -i /W/,/^$/{//!s/.//} /etc/pacman.d/mirrorlist    # config, only the Worldwide mirrors
 sed -i '/Ca/cCacheDir=/tmp/!    # option, use the RAM (& maybe the swap partition, can happen with only 4 GiB of RAM...)
@@ -99,7 +99,7 @@ cp .txt /home/a_path    # copy paste the installation log to the non volatile me
 Konsole
 ⃝
 sed -i /rt/s/true/false/ /home/a/.config/akonadi/akonadiserverrc    # option, https://discuss.kde.org/t/why-akonadi-uses-ram-despite-not-used/43327
->/home/a/.local/share/recently-used.xbel
+>/home/a/.local/share/recently-used.xbel    #
 chmod u=r /home/a/.local/share/recently-used.xbel    # option, https://askubuntu.com/questions/269858/how-do-i-prevent-the-file-recently-used-xbel-from-being-created
 localectl set-keymap fr
 ⏺
