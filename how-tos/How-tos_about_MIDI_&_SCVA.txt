@@ -21,20 +21,19 @@ Install SCVA:
 https://archive.org/download/roland-sound-canvas-va/Sound%20Canvas%20VA%20v1.1.6%20%2864-bit%29.7z
 Setup SOUND Canvas VA v1.1.6.exe via Proton (or Wine)
 
-yabridge https://archlinux.org/packages/extra/x86_64/yabridge/ uses by default Wine (a dependency), to use Proton instead, run:
+yabridge https://archlinux.org/packages/extra/x86_64/yabridge/ uses by default Wine (a dependency), to use Proton instead, modify the yabridge-*-x86_64.pkg.tar.zst package, run:
 ⃝
 cd /tmp
 wget --content-disposition https://archlinux.org/packages/extra/x86_64/yabridge/download/
-tar --one-top-level -xf yabridge-*-x86_64.pkg.tar.zst
-rm yabridge-*-x86_64.pkg.tar.zst
-sed -i /wine/d yabridge-*-x86_64.pkg/.BUILDINFO yabridge-*-x86_64.pkg/.PKGINFO
-sed -i 2cPATH=/a_path/pfx/drive_c/"'Program Files (x86)/Steam/steamapps/common/Proton a_version'/files/bin:\$PATH\nexport PATH" yabridge-*-x86_64.pkg/usr/bin/yabridge-host.exe
-tar -cf .tar -C yabridge-*-x86_64.pkg $(ls -A yabridge-*-x86_64.pkg)
-rm -r yabridge-*-x86_64.pkg
+a=yabridge-*-x86_64.pkg
+tar --one-top-level -xf $a.tar.zst
+rm $a.tar.zst
+sed -i /wine/d $a/.BUILDINFO $a/.PKGINFO
+sed -i 2cPATH=/run/media/a/8688e754-c2e4-40d1-a9c8-c205211ca8d9/pfx/drive_c/"'Program Files (x86)/Steam/steamapps/common/Proton - Experimental'/files/bin:\$PATH\nexport PATH" $a/usr/bin/yabridge-host.exe
+tar -cf .tar -C $a $(ls -A $a)
+rm -r $a
 sudo pacman -U .tar
 rm .tar
-sudo pacman -Syu
-sudo rm -r /tmp/!
 yabridgectl add /a_path/pfx/drive_c/'Program Files'/Steinberg/VSTPlugins
 WINEPREFIX=/a_path/pfx yabridgectl sync
 ⏺
