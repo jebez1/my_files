@@ -6,7 +6,7 @@ Arch Linux KDE UKI, https://wiki.archlinux.org/title/Unified_kernel_image#Bootin
 /dev/sdb1 is the partition containing the installer Bash script named e.g. 0
 /dev/sdb2 is the FAT32 (the default file system bootable by BIOS UEFI) partition containing Arch Linux Netboot or the pasted content of archlinux-x86_64.iso .
 
-The -c option of pacstrap https://man.archlinux.org/man/pacstrap.8 is used, RAM is faster & to avoid fragmentation on the OS partition.
+The pacstrap -c option https://man.archlinux.org/man/pacstrap.8 is used, RAM is faster & to avoid fragmentation on the OS partition.
 
 The target PC is a Lenovo ideacentre https://pcsupport.lenovo.com/us/en/products/desktops-and-all-in-ones/300-series/aio-310-20asr/f0ck , only 4 GiB of RAM, so 0 needs tweaks to use the swap partition at installation (e.g. 32 GiB of RAM: no need).
 
