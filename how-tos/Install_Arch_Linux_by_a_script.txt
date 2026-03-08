@@ -107,7 +107,7 @@ Reboot, to localectl set-keymap fr takes effect.
 • Tips
 
 ⃝
-nano /home/a_path/0
+nano -L /home/a_path/0
 ⏺
 to view, edit 0.
 
