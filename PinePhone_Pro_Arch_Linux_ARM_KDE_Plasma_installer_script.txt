@@ -1,0 +1,61 @@
+ssh alarm@10.15.19.82
+sed -i /Ca/cCacheDir=/tmp/! /etc/pacman.conf
+sudo pacman -Syu
+
+sudo mount -o remount,size=0 /tmp
+{
+sudo fdisk /dev/disk/by-id/mmc-A3A562_0x1dec37d0<<<'n
+
+34
+65569
+n
+
+65570
+199720926
+n
+
+199720927
+208109534
+n
+
+208109535
+241663966
+w'
+sleep 1
+sudo mkfs.fat -F16 /dev/disk/by-id/mmc-A3A562_0x1dec37d0-part1
+sudo mkfs.f2fs -f /dev/disk/by-id/mmc-A3A562_0x1dec37d0-part2
+sudo mkswap /dev/disk/by-id/mmc-A3A562_0x1dec37d0-part3
+sudo mkfs.f2fs -f /dev/disk/by-id/mmc-A3A562_0x1dec37d0-part4
+sudo mount /dev/disk/by-id/mmc-A3A562_0x1dec37d0-part2 /mnt
+sudo chmod 777 /mnt
+sudo mount --mkdir /dev/disk/by-id/mmc-A3A562_0x1dec37d0-part1 /mnt/boot
+sudo chmod 777 /mnt/boot
+sudo pacstrap -ic /mnt base device-pine64-pinephonepro dosfstools f2fs-tools man-db nano sudo plasma-meta kde-applications-meta wget danctnix-usb-tethering openssh<<<'
+
+2
+
+
+
+30
+'
+sudo rm -r /tmp/!
+sudo arch-chroot /mnt bash -c "pacman -Qqd|pacman -Rsun --noconfirm -
+systemctl enable NetworkManager ModemManager plasmalogin usb-tethering sshd
+ln -s /usr/share/zoneinfo/UTC /etc/localtime
+hwclock -w
+echo -en /dev/disk/by-id/mmc-A3A562_0x1dec37d0-part1 /boot auto'\'n/dev/disk/by-id/mmc-A3A562_0x1dec37d0-part3 none swap>/etc/fstab
+sed -i 15,17d /usr/lib/tmpfiles.d/var.conf
+rm /var/log/wtmp /var/log/btmp /var/log/lastlog
+useradd -m a
+sed -i '1s/x//
+\$s/x//' /etc/passwd
+sed -i '/t A/s/^/# /
+/L A/s/^..//' /etc/sudoers
+sed -i /Ca/cCacheDir=/tmp/! /etc/pacman.conf
+echo -n unset HISTFILE>>/etc/bash.bashrc"
+sudo umount /mnt/boot
+sudo umount /mnt
+sudo mount /dev/disk/by-id/mmc-A3A562_0x1dec37d0-part4 /mnt
+sudo chmod 777 /mnt
+}|tee /tmp/.txt
+cp /tmp/.txt /mnt
