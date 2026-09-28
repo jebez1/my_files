@@ -33,7 +33,7 @@ mount /dev/sdb1 /home    # /home is empty
 0 contains:
 ⃝
 mount -o remount,size=0 /tmp    # tweak, remove the limit of tmpfs, https://man.archlinux.org/man/tmpfs.5 , https://wiki.archlinux.org/title/Tmpfs
-sed -i '/Ca/cCacheDir=/tmp/!    # use the RAM
+sed -i '/Ca/cCacheDir=/tmp/0    # use the RAM
 /Ch/d' /etc/pacman.conf    # tweak, use the swap partition, Ch : CheckSpace
 fdisk /dev/disk/by-id/ata-WDC_WD10JPVX-08JC3T6_WD-WXU1AA6PDZNT<<<'n
 
@@ -78,7 +78,7 @@ pacstrap -icMK /mnt base linux linux-firmware-amdgpu linux-firmware-atheros dosf
 
 30
 '    # the pacstrap -i option is used, to select pipewire-jack (instead of jack2) & tesseract-data-eng
-rm -r /tmp/!    # remove the downloaded packages
+rm -r /tmp/0    # remove the downloaded packages
 arch-chroot /mnt bash -c "pacman -Qqd|pacman -Rsun --noconfirm -    # clean, https://wiki.archlinux.org/title/Pacman/Tips_and_tricks#Removing_unused_packages_.28orphans.29
 systemctl enable NetworkManager plasmalogin
 ln -s /usr/share/zoneinfo/UTC /etc/localtime
@@ -92,7 +92,7 @@ sed -i '1s/x//    #
 sed -i '/t A/s/^/# /    #
 /L A/s/^..//' /etc/sudoers   # option (strongly recommended) enable sudo
 sed -i /W/,/^$/{//!s/.//} /etc/pacman.d/mirrorlist    # config, only the Worldwide mirrors
-sed -i '/Ca/cCacheDir=/tmp/!    # option, use the RAM (& maybe the swap partition, can happen with only 4 GiB of RAM...)
+sed -i '/Ca/cCacheDir=/tmp/0    # option, use the RAM (& maybe the swap partition, can happen with only 4 GiB of RAM...)
 /b]/,+1s/.//' /etc/pacman.conf    # option, enable the multilib repo, e.g. Steam https://archlinux.org/packages/multilib/x86_64/steam/ is still 32-bit...
 echo -n unset HISTFILE>>/etc/bash.bashrc"    # option, log not the Bash commands in /home/a/.bash_history
 umount /mnt/efi
