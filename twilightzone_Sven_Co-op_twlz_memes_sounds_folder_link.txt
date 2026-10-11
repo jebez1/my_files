@@ -1,3 +1,0 @@
-https://drive.google.com/file/d/10tEs__k_tqbqyu-mFRb7V1bGwR9uvqwq
-
-From https://distfiles.lifeisabug.com/svencoop/twlz.tar.gz , this link is pinned in twilightzone Sven Co-op Discord server, see https://steamcommunity.com/groups/twlzsc , 32 GiB huge so I compressed the 3 GiB twlz folder to a 1.6 GiB .7z file.
